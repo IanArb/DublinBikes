@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal|center_vertical"
-            android:text="No tweets"
+            android:text="@string/no_tweets"
             />
 
         <ListView
@@ -28,15 +28,15 @@
             android:drawSelectorOnTop="false"/>
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/tweetBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_mode_edit"
-            android:id="@+id/floatingActionButton"/>
+            android:layout_marginStart="@dimen/spacing_large"
+            android:layout_marginEnd="@dimen/spacing_large"
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:src="@drawable/ic_mode_edit"/>
 
     </RelativeLayout>
 
