@@ -11,26 +11,24 @@ import com.ianarbuckle.dublinbikes.BaseFragment;
 import com.ianarbuckle.dublinbikes.R;
 
 /**
- * Created by Ian Arbuckle on 15/11/2016.
+ * Created by Ian Arbuckle on 23/11/2016.
  *
  */
 
-public class HomeFragment extends BaseFragment {
+public class BookmarksFragment extends BaseFragment {
 
   public static Fragment newInstance() {
-    return new HomeFragment();
+    return new BookmarksFragment();
   }
 
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.homefragment, container, false);
+    return inflater.inflate(R.layout.fragment_bookmarks, container, false);
   }
 
   @Override
   protected void initPresenter() {
 
   }
-
-
 }

@@ -11,6 +11,7 @@ import com.ianarbuckle.dublinbikes.R;
 
 /**
  * Created by Ian Arbuckle on 15/11/2016.
+ *
  */
 
 public class UiUtils {
@@ -29,8 +30,8 @@ public class UiUtils {
 
   public static Drawable colourAndStyleActionBar(View view) {
     final Drawable backArrow;
-    backArrow = ContextCompat.getDrawable(view.getContext(), R.drawable.abc_ic_ab_back_material);
-    backArrow.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorPrimaryDark), PorterDuff.Mode.SRC_ATOP);
+    backArrow = ContextCompat.getDrawable(view.getContext(), R.drawable.ic_menu);
+    backArrow.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
     return backArrow;
   }
 
