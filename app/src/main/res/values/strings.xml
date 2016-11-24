@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DublinBikes</string>
+    <string name="google_maps_key">AIzaSyCBeQ3jmE4TT1_LziopZUOeiquQ7Sv5a_g</string>
 </resources>
