@@ -11,10 +11,6 @@ import android.net.NetworkInfo;
 
 public class NetworkClient {
 
-
-//  private static final String BASE_URL = "https://api.jcdecaux.com/vls/v1/";
-//  private static final String API_KEY = "503534cf9adae09a12ca03bf3f845347ab1cbfa0";
-
   public boolean checkForConnection(Context context) {
     if(!isConnectedOrConnecting(context)) {
       return false;

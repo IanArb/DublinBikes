@@ -50,6 +50,7 @@ public class MapPresenterImpl implements MapPresenter {
   @Override
   public void fetchStations() {
     if(NetworkClient.isConnectedOrConnecting(view.getContext())) {
+
       serviceAPI = getDublinBikesServiceAPI();
 
       view.showProgressDialog();

@@ -100,6 +100,8 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
 
         clusterManager = new ClusterManager<MarkerItem>(getContext(), map);
 
+        clusterManager.cluster();
+
         map.setOnCameraChangeListener(clusterManager);
         map.setOnMarkerClickListener(clusterManager);
 
