@@ -18,8 +18,8 @@ import io.fabric.sdk.android.Fabric;
 public class DublinBikesApplication extends Application {
 
   // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
-  private static final String TWITTER_KEY = "eVuhajCjJ7AzIFq8R3gue9dKw";
-  private static final String TWITTER_SECRET = "5Rmw0ys4E44ZtK3Fwr6TDUJD3ir05KcVc24fxTf46zTynzZJ67";
+  private final String TWITTER_KEY = this.getResources().getString(R.string.twitter_key);
+  private final String TWITTER_SECRET = this.getResources().getString(R.string.twitter_secret);
 
   private ApplicationComponent applicationComponent;
 
@@ -30,6 +30,7 @@ public class DublinBikesApplication extends Application {
     getApplicationComponent(this);
 
     TwitterAuthConfig authConfig = initTwitter();
+
     initFabric(authConfig);
 
   }

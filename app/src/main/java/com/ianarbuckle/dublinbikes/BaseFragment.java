@@ -12,6 +12,7 @@ import butterknife.Unbinder;
 
 /**
  * Created by Ian Arbuckle on 15/11/2016.
+ *
  */
 
 public abstract class BaseFragment extends Fragment {

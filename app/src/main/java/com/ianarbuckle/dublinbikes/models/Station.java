@@ -42,7 +42,7 @@ public class Station {
   private int availableBikes;
   @SerializedName("last_update")
   @Expose
-  private int lastUpdate;
+  private float lastUpdate;
 
   /**
    * No args constructor for use in serialization
@@ -284,7 +284,7 @@ public class Station {
    * @return
    * The lastUpdate
    */
-  public int getLastUpdate() {
+  public float getLastUpdate() {
     return lastUpdate;
   }
 
@@ -293,7 +293,7 @@ public class Station {
    * @param lastUpdate
    * The last_update
    */
-  public void setLastUpdate(int lastUpdate) {
+  public void setLastUpdate(float lastUpdate) {
     this.lastUpdate = lastUpdate;
   }
 

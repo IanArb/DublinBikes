@@ -12,6 +12,9 @@ import android.support.v4.view.ViewPager;
 
 import com.ianarbuckle.dublinbikes.BaseActivity;
 import com.ianarbuckle.dublinbikes.R;
+import com.ianarbuckle.dublinbikes.bookmarks.BookmarksFragment;
+import com.ianarbuckle.dublinbikes.map.MapFragment;
+import com.ianarbuckle.dublinbikes.tweets.TweetsFragment;
 
 import butterknife.BindView;
 
