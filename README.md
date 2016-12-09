@@ -1,7 +1,10 @@
 # DublinBikes
 College Mobile Applications Project
 
-# API Documentation
-https://developer.jcdecaux.com
+# Project setup
+Retrieve an API key from https://developer.jcdecaux.com
+
+
+
 
 
