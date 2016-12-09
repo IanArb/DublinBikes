@@ -1,4 +1,4 @@
-package com.ianarbuckle.dublinbikes.home;
+package com.ianarbuckle.dublinbikes.bookmarks;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -31,7 +31,7 @@ ext {
     rxBindingVersion = '0.2.0'
     rxJavaVersion = '1.0.14'
     daggerVersion = '2.4'
-    retrofitVersion = '1.9.0'
+    retrofitVersion = '2.1.0'
     javaxVersion = "1.2"
     butterKnifeCompilerVersion = '8.4.0'
 
@@ -74,7 +74,7 @@ ext {
             rxAndroid          : "io.reactivex:rxandroid:${rxAndroidVersion}",
             rxBinding          : "com.jakewharton.rxbinding:rxbinding:${rxBindingVersion}",
             rxJava             : "io.reactivex:rxjava:${rxJavaVersion}",
-            retrofit           : "com.squareup.retrofit:retrofit:${retrofitVersion}",
+            retrofit           : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
             javax              : "javax.annotation:javax.annotation-api:${javaxVersion}"
     ]
 

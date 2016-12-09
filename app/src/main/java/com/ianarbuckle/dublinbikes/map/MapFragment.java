@@ -1,4 +1,4 @@
-package com.ianarbuckle.dublinbikes.home;
+package com.ianarbuckle.dublinbikes.map;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -24,12 +25,18 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.ClusterManager;
 import com.ianarbuckle.dublinbikes.BaseFragment;
 import com.ianarbuckle.dublinbikes.R;
+import com.ianarbuckle.dublinbikes.models.Contract;
+import com.ianarbuckle.dublinbikes.models.Station;
+
+import java.util.List;
+
+import retrofit2.Response;
 
 /**
  * Created by Ian Arbuckle on 15/11/2016.
@@ -37,7 +44,7 @@ import com.ianarbuckle.dublinbikes.R;
  */
 
 public class MapFragment extends BaseFragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
-    LocationListener {
+    LocationListener, MapView {
 
   private static final int PERMISSION_REQUEST_ACCESS_LOCATION = 99;
   private GoogleMap map;
@@ -45,6 +52,9 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
   LocationRequest locationRequest;
   Location lastLocation;
   Marker currentLocation;
+  ClusterManager<MarkerItem> clusterManager;
+
+  private MapPresenterImpl presenter;
 
   public static Fragment newInstance() {
     return new MapFragment();
@@ -57,12 +67,22 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
   }
 
   @Override
+  protected void initPresenter() {
+    presenter = new MapPresenterImpl(this);
+  }
+
+  @Override
   public void onStart() {
     super.onStart();
     if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       checkPermission();
     }
     initMap();
+    getStationsList();
+  }
+
+  private void getStationsList() {
+    presenter.fetchStations();
   }
 
   private void initMap() {
@@ -78,6 +98,13 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
 
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
+        clusterManager = new ClusterManager<MarkerItem>(getContext(), map);
+
+        map.setOnCameraChangeListener(clusterManager);
+        map.setOnMarkerClickListener(clusterManager);
+
+        setupLocations();
+
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
           if (isPermissionGranted()) {
             buildGoogleApiClient();
@@ -87,8 +114,22 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
           buildGoogleApiClient();
           map.setMyLocationEnabled(true);
         }
+
       }
     });
+  }
+
+  private void setupLocations() {
+    int size = presenter.onResponseStations().size();
+    List<Station> stationList = presenter.onResponseStations();
+
+
+    for(int i = 0; i < size; i++) {
+      double lat = stationList.get(i).getPosition().getLat();
+      double lng = stationList.get(i).getPosition().getLng();
+      MarkerItem markerItem = new MarkerItem(lat, lng);
+      clusterManager.addItem(markerItem);
+    }
   }
 
   @NonNull
@@ -111,12 +152,6 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
     googleApiClient.connect();
   }
 
-
-  @Override
-  protected void initPresenter() {
-
-  }
-
   @Override
   public void onConnected(Bundle bundle) {
     locationRequest = new LocationRequest();
@@ -136,12 +171,10 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
 
   @Override
   public void onConnectionSuspended(int count) {
-
   }
 
   @Override
   public void onConnectionFailed(ConnectionResult connectionResult) {
-
   }
 
   @Override
@@ -154,12 +187,10 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
     LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
     MarkerOptions markerOptions = new MarkerOptions();
     markerOptions.position(latLng);
-    markerOptions.title("Current Position");
-    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
     currentLocation = map.addMarker(markerOptions);
 
     map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
-    map.animateCamera(CameraUpdateFactory.zoomTo(16));
+    map.animateCamera(CameraUpdateFactory.zoomTo(12));
 
     if (googleApiClient != null) {
       LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
@@ -197,5 +228,24 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
         }
       }
     }
+  }
+
+  @Override
+  public void hideProgressDialog() {
+
+  }
+
+  @Override
+  public void showProgressDialog() {
+  }
+
+  @Override
+  public void onFailureMessage(Throwable throwable) {
+    Toast.makeText(getContext(), "Error message: " + throwable.getMessage(), Toast.LENGTH_LONG).show();
+  }
+
+  @Override
+  public void showContractResponse(Response<List<Contract>> response) {
+
   }
 }
