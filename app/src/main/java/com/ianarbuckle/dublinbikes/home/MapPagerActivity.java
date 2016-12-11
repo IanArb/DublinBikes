@@ -51,9 +51,9 @@ public class MapPagerActivity extends BaseActivity {
   }
 
   private void initTabLayout() {
-    tabLayout.addTab(tabLayout.newTab().setText("Map"));
-    tabLayout.addTab(tabLayout.newTab().setText("Bookmarks"));
-    tabLayout.addTab(tabLayout.newTab().setText("Tweets"));
+    tabLayout.addTab(tabLayout.newTab().setText(R.string.map_title));
+    tabLayout.addTab(tabLayout.newTab().setText(R.string.bookmarks_title));
+    tabLayout.addTab(tabLayout.newTab().setText(R.string.tweets_title));
   }
 
   private void initPager() {
@@ -81,7 +81,7 @@ public class MapPagerActivity extends BaseActivity {
   private class MapPagerAdapter extends FragmentStatePagerAdapter {
     int numTabs;
 
-    public MapPagerAdapter(FragmentManager fragmentManager, int numTabs) {
+    MapPagerAdapter(FragmentManager fragmentManager, int numTabs) {
       super(fragmentManager);
       this.numTabs = numTabs;
     }

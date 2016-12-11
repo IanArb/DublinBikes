@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,7 +15,6 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -31,12 +31,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.ClusterManager;
 import com.ianarbuckle.dublinbikes.BaseFragment;
 import com.ianarbuckle.dublinbikes.R;
-import com.ianarbuckle.dublinbikes.models.Contract;
 import com.ianarbuckle.dublinbikes.models.Station;
+import com.ianarbuckle.dublinbikes.utiity.ErrorFragmentDialog;
+import com.ianarbuckle.dublinbikes.utiity.PopupFragmentDialog;
 
 import java.util.List;
-
-import retrofit2.Response;
 
 /**
  * Created by Ian Arbuckle on 15/11/2016.
@@ -47,12 +46,13 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
     LocationListener, MapView {
 
   private static final int PERMISSION_REQUEST_ACCESS_LOCATION = 99;
+  private static final String TAG = "dialogFragment";
   private GoogleMap map;
   private GoogleApiClient googleApiClient;
   LocationRequest locationRequest;
   Location lastLocation;
   Marker currentLocation;
-  ClusterManager<MarkerItem> clusterManager;
+  ClusterManager<MarkerItemModel> clusterManager;
 
   private MapPresenterImpl presenter;
 
@@ -97,8 +97,9 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
         map = googleMap;
 
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        map.getUiSettings().setMapToolbarEnabled(false);
 
-        clusterManager = new ClusterManager<MarkerItem>(getContext(), map);
+        clusterManager = new ClusterManager<>(getContext(), map);
 
         clusterManager.cluster();
 
@@ -121,17 +122,17 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
     });
   }
 
-  private void setupLocations() {
-    int size = presenter.onResponseStations().size();
-    List<Station> stationList = presenter.onResponseStations();
+  @NonNull
+  private FragmentTransaction getFragmentTransaction() {
+    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+    Fragment fragment = getActivity().getSupportFragmentManager().findFragmentByTag(TAG);
 
-
-    for(int i = 0; i < size; i++) {
-      double lat = stationList.get(i).getPosition().getLat();
-      double lng = stationList.get(i).getPosition().getLng();
-      MarkerItem markerItem = new MarkerItem(lat, lng);
-      clusterManager.addItem(markerItem);
+    if (fragment != null) {
+      fragmentTransaction.remove(fragment);
     }
+
+    fragmentTransaction.addToBackStack(null);
+    return fragmentTransaction;
   }
 
   @NonNull
@@ -156,11 +157,12 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
 
   @Override
   public void onConnected(Bundle bundle) {
+    lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
     locationRequest = new LocationRequest();
     locationRequest.setInterval(1000);
     locationRequest.setFastestInterval(1000);
     locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-    if(isPermissionGranted()) {
+    if (isPermissionGranted()) {
       LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
     }
   }
@@ -187,6 +189,7 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
     }
 
     LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
     MarkerOptions markerOptions = new MarkerOptions();
     markerOptions.position(latLng);
     currentLocation = map.addMarker(markerOptions);
@@ -196,6 +199,65 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
 
     if (googleApiClient != null) {
       LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
+    }
+    //TODO Calculate distance from location
+//    showDistance(distance);
+  }
+
+  //TODO Calculate distance from location
+//  private void showDistance(double distance) {
+//    lastLocation.getLongitude();
+//    lastLocation.getLatitude();
+//    int size = presenter.onResponseStations().size();
+//    final List<Station> stationList = presenter.onResponseStations();
+//    for (int i = 0; i < size; i++) {
+//      String name = stationList.get(i).getName();
+//      double lat = stationList.get(i).getPosition().getLat();
+//      double lng = stationList.get(i).getPosition().getLng();
+//
+//      LatLng latLngTo = new LatLng(lat, lng);
+//
+//      LatLng locLatLng = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+//
+//      distance = SphericalUtil.computeDistanceBetween(locLatLng, latLngTo);
+//
+//      Toast.makeText(getContext(), "Name: " + name + " Distance: " + distance, Toast.LENGTH_SHORT).show();
+//    }
+//  }
+
+  private void setupLocations() {
+
+    int size = presenter.onResponseStations().size();
+    final List<Station> stationList = presenter.onResponseStations();
+
+    for (int i = 0; i < size; i++) {
+      MarkerItemModel markerItemModel = presenter.getMarkerModelItems(stationList, i);
+      clusterManager.getClusterMarkerCollection().getMarkers();
+      clusterManager.addItem(markerItemModel);
+      clusterManager.cluster();
+      clusterManager.setOnClusterItemClickListener(new ClusterManager.OnClusterItemClickListener<MarkerItemModel>() {
+        @Override
+        public boolean onClusterItemClick(MarkerItemModel markerItemModel) {
+
+          FragmentTransaction fragmentTransaction = getFragmentTransaction();
+
+          String nameMarker = markerItemModel.getName();
+          String addressMarker = markerItemModel.getAddress();
+          String statusMarker = markerItemModel.getStatus();
+          int slotsMarker = markerItemModel.getSlots();
+          int availMarker = markerItemModel.getAvailable();
+          float update = markerItemModel.getUpdate();
+          //TODO Calculate distance from location
+//          markerItemModel.setDistance(distance);
+//          distance = markerItemModel.getDistance();
+
+          DialogFragment dialogFragment = PopupFragmentDialog.newInstance(nameMarker, addressMarker, statusMarker, slotsMarker, availMarker, update);
+          dialogFragment.onCreateAnimation(R.anim.slide_up, true, R.anim.slide_down);
+          dialogFragment.show(fragmentTransaction, TAG);
+
+          return false;
+        }
+      });
     }
   }
 
@@ -243,11 +305,10 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
 
   @Override
   public void onFailureMessage(Throwable throwable) {
-    Toast.makeText(getContext(), "Error message: " + throwable.getMessage(), Toast.LENGTH_LONG).show();
+    FragmentTransaction fragmentTransaction = getFragmentTransaction();
+
+    DialogFragment dialogFragment = ErrorFragmentDialog.newInstance(throwable.getMessage());
+    dialogFragment.show(fragmentTransaction, TAG);
   }
 
-  @Override
-  public void showContractResponse(Response<List<Contract>> response) {
-
-  }
 }

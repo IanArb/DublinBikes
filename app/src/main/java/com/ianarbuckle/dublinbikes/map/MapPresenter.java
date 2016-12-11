@@ -9,7 +9,7 @@ import java.util.List;
  *
  */
 
-public interface MapPresenter {
+interface MapPresenter {
 
   void fetchStations();
 
@@ -17,5 +17,8 @@ public interface MapPresenter {
 
   void fetchStation();
 
+  MarkerItemModel getMarkerModelItems(List<Station> stationList, int size);
+
   List<Station> onResponseStations();
+
 }
