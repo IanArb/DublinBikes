@@ -1,5 +1,6 @@
 package com.ianarbuckle.dublinbikes.map;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.ianarbuckle.dublinbikes.models.Contract;
 import com.ianarbuckle.dublinbikes.models.Station;
 import com.ianarbuckle.dublinbikes.network.DublinBikesServiceAPI;
@@ -19,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  *
  */
 
-public class MapPresenterImpl implements MapPresenter {
+class MapPresenterImpl implements MapPresenter {
 
   private static final String BASE_URL = "https://api.jcdecaux.com/";
 
@@ -29,7 +30,7 @@ public class MapPresenterImpl implements MapPresenter {
 
   private List<Station> stationList = new ArrayList<>();
 
-  public MapPresenterImpl(MapView view) {
+  MapPresenterImpl(MapView view) {
     this.view = view;
   }
 
@@ -48,8 +49,38 @@ public class MapPresenterImpl implements MapPresenter {
   }
 
   @Override
+  public MarkerItemModel getMarkerModelItems(List<Station> stations, int size) {
+    String name = stations.get(size).getName();
+    double lng = stations.get(size).getPosition().getLng();
+    double lat = stations.get(size).getPosition().getLat();
+    LatLng latLng = new LatLng(lat, lng);
+    String address = stations.get(size).getAddress();
+    String status = stations.get(size).getStatus();
+    int avail = stations.get(size).getAvailableBikes();
+    int slots = stations.get(size).getAvailableBikeStands();
+    float update = stations.get(size).getLastUpdate();
+
+    return new MarkerItemModel(latLng, name, address, status, slots, avail, update);
+  }
+
+
+//  private double showDistance() {
+//    double distance = 0;
+//    int size = stationList.size();
+//
+//    for(int i = 0; i < size; i++) {
+//      double lat = stationList.get(i).getPosition().getLat();
+//      double lng = stationList.get(i).getPosition().getLng();
+//      LatLng latLng = new LatLng(lat, lng);
+//      LatLng location = getLocation(lastLocation);
+//      distance = SphericalUtil.computeDistanceBetween(location, latLng);
+//    }
+//    return distance;
+//  }
+
+  @Override
   public void fetchStations() {
-    if(NetworkClient.isConnectedOrConnecting(view.getContext())) {
+    if (NetworkClient.isConnectedOrConnecting(view.getContext())) {
       serviceAPI = getDublinBikesServiceAPI();
 
       view.showProgressDialog();
@@ -62,7 +93,7 @@ public class MapPresenterImpl implements MapPresenter {
 
   @Override
   public void fetchStation() {
-    if(NetworkClient.isConnectedOrConnecting(view.getContext())) {
+    if (NetworkClient.isConnectedOrConnecting(view.getContext())) {
       serviceAPI = getDublinBikesServiceAPI();
 
       view.showProgressDialog();
@@ -103,7 +134,6 @@ public class MapPresenterImpl implements MapPresenter {
       @Override
       public void onResponse(Call<List<Contract>> call, Response<List<Contract>> response) {
         view.hideProgressDialog();
-        view.showContractResponse(response);
       }
 
       @Override

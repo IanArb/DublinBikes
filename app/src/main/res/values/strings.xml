@@ -2,4 +2,14 @@
     <string name="app_name">DublinBikes</string>
     <string name="google_maps_key">AIzaSyCBeQ3jmE4TT1_LziopZUOeiquQ7Sv5a_g</string>
     <string name="no_tweets">No tweets</string>
+    <string name="map_title">Map</string>
+    <string name="bookmarks_title">Bookmarks</string>
+    <string name="tweets_title">Tweets</string>
+    <string name="available_slots">Available slots:</string>
+    <string name="available_bikes">Available bikes:</string>
+    <string name="common_ok">OK</string>
+    <string name="error_message_title">Oops.. something went wrong!</string>
+    <string name="close_content_desc">Close</string>
+    <string name="slots_icon_content_desc">Slots icon</string>
+    <string name="last_update">Last update:</string>
 </resources>

@@ -35,6 +35,12 @@ public class TweetsFragment extends ListFragment {
     return new TweetsFragment();
   }
 
+  @Nullable
+  @Override
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    return inflater.inflate(R.layout.fragment_tweets, container, false);
+  }
+
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -73,12 +79,6 @@ public class TweetsFragment extends ListFragment {
         });
       }
     });
-  }
-
-  @Nullable
-  @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.fragment_tweets, container, false);
   }
 
 }
