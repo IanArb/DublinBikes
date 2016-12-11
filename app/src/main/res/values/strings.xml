@@ -11,5 +11,5 @@
     <string name="error_message_title">Oops.. something went wrong!</string>
     <string name="close_content_desc">Close</string>
     <string name="slots_icon_content_desc">Slots icon</string>
-    <string name="last_update">Last update:</string>
+    <string name="last_update">Last update: </string>
 </resources>
