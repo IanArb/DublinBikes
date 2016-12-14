@@ -7,7 +7,7 @@ import android.content.Context;
  *
  */
 
-interface MapView {
+public interface MapView {
 
   Context getContext();
 

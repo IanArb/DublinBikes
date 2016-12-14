@@ -4,6 +4,7 @@ import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+
 @Generated("org.jsonschema2pojo")
 public class Station {
 
@@ -42,7 +43,7 @@ public class Station {
   private int availableBikes;
   @SerializedName("last_update")
   @Expose
-  private float lastUpdate;
+  private long lastUpdate;
 
   /**
    * No args constructor for use in serialization
@@ -284,7 +285,7 @@ public class Station {
    * @return
    * The lastUpdate
    */
-  public float getLastUpdate() {
+  public long getLastUpdate() {
     return lastUpdate;
   }
 
@@ -293,7 +294,7 @@ public class Station {
    * @param lastUpdate
    * The last_update
    */
-  public void setLastUpdate(float lastUpdate) {
+  public void setLastUpdate(long lastUpdate) {
     this.lastUpdate = lastUpdate;
   }
 

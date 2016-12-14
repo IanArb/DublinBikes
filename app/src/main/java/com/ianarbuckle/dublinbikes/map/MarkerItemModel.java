@@ -8,7 +8,7 @@ import com.google.maps.android.clustering.ClusterItem;
  *
  */
 
-class MarkerItemModel implements ClusterItem {
+public class MarkerItemModel implements ClusterItem {
 
   private final LatLng position;
   private final String name;
@@ -16,10 +16,10 @@ class MarkerItemModel implements ClusterItem {
   private final String status;
   private final int slots;
   private final int available;
-  private final float update;
+  private final long update;
 
   MarkerItemModel(LatLng position, String name, String address, String status, int slots, int available,
-                                float update) {
+                                long update) {
     this.position = position;
     this.name = name;
     this.address = address;
@@ -54,7 +54,7 @@ class MarkerItemModel implements ClusterItem {
     return available;
   }
 
-  float getUpdate() {
+  long getUpdate() {
     return update;
   }
 

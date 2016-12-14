@@ -5,6 +5,6 @@
              android:layout_height="match_parent"
              xmlns:tools="http://schemas.android.com/tools"
              android:name="com.google.android.gms.maps.SupportMapFragment"
-             tools:context="com.ianarbuckle.dublinbikes.home.MapPagerActivity">
+             tools:context="com.ianarbuckle.dublinbikes.map.MapPagerActivity">
 
 </FrameLayout>

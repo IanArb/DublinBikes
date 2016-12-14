@@ -30,20 +30,18 @@ public class PopupFragmentDialog extends DialogFragment {
   private static final String SLOTS_KEY = "slots";
   private static final String AVAIL_KEY = "available";
   private static final String UPDATE_KEY = "update";
-//  private static final String DISTANCE_KEY = "distance";
 
   String name;
   String address;
   String status;
   int slots;
   int available;
-  float update;
-//  double distance;
+  long update;
 
   public PopupFragmentDialog() {
   }
 
-  public static PopupFragmentDialog newInstance(String name, String address, String status, int slots, int available, float update) {
+  public static PopupFragmentDialog newInstance(String name, String address, String status, int slots, int available, long update) {
     PopupFragmentDialog popupFragmentDialog = new PopupFragmentDialog();
     Bundle args = new Bundle();
     args.putString(NAME_KEY, name);
@@ -51,8 +49,7 @@ public class PopupFragmentDialog extends DialogFragment {
     args.putString(STATUS_KEY, status);
     args.putInt(SLOTS_KEY, slots);
     args.putInt(AVAIL_KEY, available);
-    args.putFloat(UPDATE_KEY, update);
-//    args.putDouble(DISTANCE_KEY, distance);
+    args.putLong(UPDATE_KEY, update);
     popupFragmentDialog.setArguments(args);
     return popupFragmentDialog;
   }
@@ -60,9 +57,11 @@ public class PopupFragmentDialog extends DialogFragment {
   @Override
   public void onStart() {
     super.onStart();
-    getDialog().getWindow().setWindowAnimations(R.style.DialogAnimation);
-    getDialog().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-    getDialog().getWindow().setGravity(Gravity.BOTTOM);
+    if(getDialog().getWindow() != null) {
+      getDialog().getWindow().setWindowAnimations(R.style.DialogAnimation);
+      getDialog().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+      getDialog().getWindow().setGravity(Gravity.BOTTOM);
+    }
   }
 
   @Nullable
@@ -74,8 +73,7 @@ public class PopupFragmentDialog extends DialogFragment {
     status = getArguments().getString(STATUS_KEY);
     slots = getArguments().getInt(SLOTS_KEY);
     available = getArguments().getInt(AVAIL_KEY);
-    update = getArguments().getFloat(UPDATE_KEY);
-//    distance = getArguments().getDouble(DISTANCE_KEY);
+    update = getArguments().getLong(UPDATE_KEY);
 
     View nameTv = view.findViewById(R.id.nameTv);
     ((TextView) nameTv).setText(name);
@@ -90,11 +88,8 @@ public class PopupFragmentDialog extends DialogFragment {
     String availFormat = String.format(Locale.ENGLISH, "%d", available);
     ((TextView) availTv).setText(availFormat);
     View updateTv = view.findViewById(R.id.updateTv);
-    String formatUpdate = TextUtils.getMinutesString(Math.round(update));
-    ((TextView) updateTv).setText(String.format("%s mins ago", formatUpdate));
-//    View distanceTv = view.findViewById(R.id.distance);
-//    NumberFormat numberFormat = new DecimalFormat("#.0");
-//    ((TextView) distanceTv).setText(numberFormat.format(distance));
+    String formatUpdate = TextUtils.getDuration(update);
+    ((TextView) updateTv).setText(formatUpdate);
 
     ImageButton closeButton = (ImageButton) view.findViewById(R.id.close);
     closeButton.setOnClickListener(new View.OnClickListener() {

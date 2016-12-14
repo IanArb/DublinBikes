@@ -1,17 +1,20 @@
 package com.ianarbuckle.dublinbikes.utiity;
 
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Created by Ian Arbuckle on 11/12/2016.
  *
  */
 
-class TextUtils {
+public class TextUtils {
 
-  static String getMinutesString(int seconds) {
+  public static String getDuration(long millis) {
 
-    int mins = (seconds % 3600) / 60;
-
-    return String.valueOf(mins);
+    return new SimpleDateFormat("HH 'hours' mm 'mins ago'", Locale.ENGLISH).format(new Date(millis));
   }
 
 }

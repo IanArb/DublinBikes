@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.ianarbuckle.dublinbikes.home.MapPagerActivity;
+import com.ianarbuckle.dublinbikes.map.MapPagerActivity;
 import com.ianarbuckle.dublinbikes.utiity.UiUtils;
 
 import butterknife.BindView;
@@ -34,7 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
   @Nullable
   @BindView(R.id.drawer_layout)
-  DrawerLayout drawerLayout;
+  protected DrawerLayout drawerLayout;
 
   Unbinder unbinder;
 
