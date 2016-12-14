@@ -9,13 +9,9 @@ import java.util.List;
  *
  */
 
-interface MapPresenter {
+public interface MapPresenter {
 
   void fetchStations();
-
-  void fetchContracts();
-
-  void fetchStation();
 
   MarkerItemModel getMarkerModelItems(List<Station> stationList, int size);
 

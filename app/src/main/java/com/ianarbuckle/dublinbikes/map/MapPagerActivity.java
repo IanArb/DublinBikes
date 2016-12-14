@@ -1,4 +1,4 @@
-package com.ianarbuckle.dublinbikes.home;
+package com.ianarbuckle.dublinbikes.map;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,14 +7,14 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.view.MenuItem;
 
 import com.ianarbuckle.dublinbikes.BaseActivity;
 import com.ianarbuckle.dublinbikes.R;
-import com.ianarbuckle.dublinbikes.bookmarks.BookmarksFragment;
-import com.ianarbuckle.dublinbikes.map.MapFragment;
-import com.ianarbuckle.dublinbikes.tweets.TweetsFragment;
+import com.ianarbuckle.dublinbikes.stations.StationsFragment;
+import com.ianarbuckle.dublinbikes.utiity.SmartFragmentStatePagerAdapter;
 
 import butterknife.BindView;
 
@@ -31,6 +31,8 @@ public class MapPagerActivity extends BaseActivity {
 
   @BindView(R.id.viewpager)
   ViewPager viewPager;
+
+  MapPagerAdapter mapPagerAdapter;
 
   public static Intent newIntent(Context context) {
     return new Intent(context, MapPagerActivity.class);
@@ -52,8 +54,16 @@ public class MapPagerActivity extends BaseActivity {
 
   private void initTabLayout() {
     tabLayout.addTab(tabLayout.newTab().setText(R.string.map_title));
-    tabLayout.addTab(tabLayout.newTab().setText(R.string.bookmarks_title));
-    tabLayout.addTab(tabLayout.newTab().setText(R.string.tweets_title));
+    tabLayout.addTab(tabLayout.newTab().setText("Stations"));
+//    tabLayout.addTab(tabLayout.newTab().setText(R.string.bookmarks_title));
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    if(mapPagerAdapter != null) {
+      mapPagerAdapter.notifyDataSetChanged();
+    }
   }
 
   private void initPager() {
@@ -78,7 +88,7 @@ public class MapPagerActivity extends BaseActivity {
     });
   }
 
-  private class MapPagerAdapter extends FragmentStatePagerAdapter {
+  private class MapPagerAdapter extends SmartFragmentStatePagerAdapter {
     int numTabs;
 
     MapPagerAdapter(FragmentManager fragmentManager, int numTabs) {
@@ -87,23 +97,34 @@ public class MapPagerActivity extends BaseActivity {
     }
 
     @Override
+    public int getCount() {
+      return numTabs;
+    }
+
+    @Override
     public Fragment getItem(int position) {
       switch (position) {
         case 0 :
           return MapFragment.newInstance();
         case 1 :
-          return BookmarksFragment.newInstance();
-        case 2:
-          return TweetsFragment.newInstance();
+          return StationsFragment.newInstance();
         default:
           return null;
       }
     }
+  }
 
-    @Override
-    public int getCount() {
-      return numTabs;
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case android.R.id.home:
+        if(drawerLayout != null) {
+          drawerLayout.openDrawer(GravityCompat.START);
+        }
+        return true;
     }
+
+    return super.onOptionsItemSelected(item);
   }
 
 }

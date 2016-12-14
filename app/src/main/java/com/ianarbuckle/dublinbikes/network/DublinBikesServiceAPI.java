@@ -8,6 +8,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by Ian Arbuckle on 24/11/2016.
@@ -21,8 +22,8 @@ public interface DublinBikesServiceAPI {
   Call<List<Contract>> getContracts();
 
   //Get all stations
-  @GET("vls/v1/stations?&apiKey==503534cf9adae09a12ca03bf3f845347ab1cbfa0")
-  Call<List<Station>> getAllStations();
+  @GET("vls/v1/stations?contract=dublin&apiKey=503534cf9adae09a12ca03bf3f845347ab1cbfa0")
+  Call<List<Station>> getAllStations(@Query("index") int index);
 
   //Get stations of a contract - i.e. get all Dublin bike stations
   @GET("vls/v1/stations?contract=dublin&apiKey=503534cf9adae09a12ca03bf3f845347ab1cbfa0")

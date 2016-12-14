@@ -37,6 +37,7 @@ import com.ianarbuckle.dublinbikes.utiity.PopupFragmentDialog;
 
 import java.util.List;
 
+
 /**
  * Created by Ian Arbuckle on 15/11/2016.
  *
@@ -63,6 +64,7 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    setRetainInstance(true);
     return inflater.inflate(R.layout.fragment_map, container, false);
   }
 
@@ -77,13 +79,14 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
     if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       checkPermission();
     }
-    initMap();
     getStationsList();
+    initMap();
   }
 
   private void getStationsList() {
     presenter.fetchStations();
   }
+
 
   private void initMap() {
     SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager()
@@ -101,7 +104,8 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
 
         clusterManager = new ClusterManager<>(getContext(), map);
 
-        clusterManager.cluster();
+        final CustomMarkerRenderer clusterRenderer = new CustomMarkerRenderer(getContext(), map, clusterManager);
+        clusterManager.setRenderer(clusterRenderer);
 
         map.setOnCameraChangeListener(clusterManager);
         map.setOnMarkerClickListener(clusterManager);
@@ -139,9 +143,10 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
   private SupportMapFragment initFragment(SupportMapFragment supportMapFragment) {
     if (supportMapFragment == null) {
       FragmentManager fragmentManager = getFragmentManager();
+      supportMapFragment = new SupportMapFragment();
       FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-      supportMapFragment = SupportMapFragment.newInstance();
       fragmentTransaction.replace(R.id.fragment_map, supportMapFragment).commit();
+      setRetainInstance(true);
     }
     return supportMapFragment;
   }
@@ -175,10 +180,12 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
 
   @Override
   public void onConnectionSuspended(int count) {
+    //Stub method
   }
 
   @Override
   public void onConnectionFailed(ConnectionResult connectionResult) {
+    //Stub method
   }
 
   @Override
@@ -194,7 +201,7 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
     markerOptions.position(latLng);
     currentLocation = map.addMarker(markerOptions);
 
-    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
+    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
     map.animateCamera(CameraUpdateFactory.zoomTo(12));
 
     if (googleApiClient != null) {
@@ -246,7 +253,7 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
           String statusMarker = markerItemModel.getStatus();
           int slotsMarker = markerItemModel.getSlots();
           int availMarker = markerItemModel.getAvailable();
-          float update = markerItemModel.getUpdate();
+          long update = markerItemModel.getUpdate();
           //TODO Calculate distance from location
 //          markerItemModel.setDistance(distance);
 //          distance = markerItemModel.getDistance();
