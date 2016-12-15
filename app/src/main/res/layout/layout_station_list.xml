@@ -14,9 +14,16 @@
         android:padding="@dimen/spacing_normal">
 
         <TextView
+            android:id="@+id/distanceTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="3.5 km"/>
+
+        <TextView
             android:id="@+id/nameTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/distanceTv"
             android:textAllCaps="true"
             android:textSize="@dimen/text_size_large"
             tools:text="Lime Street"/>
