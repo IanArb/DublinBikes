@@ -26,10 +26,10 @@ public class ErrorFragmentDialog extends DialogFragment {
 
   }
 
-  public static ErrorFragmentDialog newInstance(String message) {
+  public static ErrorFragmentDialog newInstance(int message) {
     ErrorFragmentDialog errorDialogFragment = new ErrorFragmentDialog();
     Bundle args = new Bundle();
-    args.putString(MESSAGE_KEY, message);
+    args.putInt(MESSAGE_KEY, message);
     errorDialogFragment.setArguments(args);
     return errorDialogFragment;
   }

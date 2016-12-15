@@ -1,0 +1,128 @@
+{
+  "project_info": {
+    "project_number": "580100214935",
+    "firebase_url": "https://dublin-bikes-e42b7.firebaseio.com",
+    "project_id": "dublin-bikes-e42b7",
+    "storage_bucket": "dublin-bikes-e42b7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:580100214935:android:907c768a83f06457",
+        "android_client_info": {
+          "package_name": "com.ianarbuckle.dublinbikes.snapshot.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "580100214935-t4gsqrndfodkcsvta34n3jg47r5aheic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbHyNRPOWEmHgriGtb7UIFpYgoni2V6L8"
+        },
+        {
+          "current_key": "AIzaSyA4O37oah6SLXv1FASj3hgONRtyizjzGyQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "580100214935-t4gsqrndfodkcsvta34n3jg47r5aheic.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:580100214935:android:2d0797dd1fc091e5",
+        "android_client_info": {
+          "package_name": "com.ian.arbuckle.dublinbikes.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "580100214935-t4gsqrndfodkcsvta34n3jg47r5aheic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbHyNRPOWEmHgriGtb7UIFpYgoni2V6L8"
+        },
+        {
+          "current_key": "AIzaSyA4O37oah6SLXv1FASj3hgONRtyizjzGyQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "580100214935-t4gsqrndfodkcsvta34n3jg47r5aheic.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:580100214935:android:b71ef1400daa32bb",
+        "android_client_info": {
+          "package_name": "com.ian.arbuckle.dublinbikes.staging.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "580100214935-t4gsqrndfodkcsvta34n3jg47r5aheic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbHyNRPOWEmHgriGtb7UIFpYgoni2V6L8"
+        },
+        {
+          "current_key": "AIzaSyA4O37oah6SLXv1FASj3hgONRtyizjzGyQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "580100214935-t4gsqrndfodkcsvta34n3jg47r5aheic.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

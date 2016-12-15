@@ -68,6 +68,12 @@ public abstract class BaseFragment extends Fragment {
     unbinder.unbind();
   }
 
+  @Override
+  public void onStop() {
+    super.onStop();
+    hideProgressDialog();
+  }
+
   public boolean onBackPressed() {
     return false;
   }

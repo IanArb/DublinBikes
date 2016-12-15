@@ -4,18 +4,14 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
-            android:title="Home"/>
-        <item
-            android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_person_pin"
-            android:title="My Profile"/>
-        <item
-            android:id="@+id/nav_signout"
-            android:icon="@drawable/ic_input"
-            android:title="Log out"/>
+            android:title="@string/home"/>
         <item
             android:id="@+id/nav_invite"
             android:icon="@drawable/ic_share"
-            android:title="Invite"/>
+            android:title="@string/invite"/>
+        <item
+            android:id="@+id/nav_signout"
+            android:icon="@drawable/ic_input"
+            android:title="@string/log_out"/>
     </group>
 </menu>

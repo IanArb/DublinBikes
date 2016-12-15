@@ -1,5 +1,6 @@
 package com.ianarbuckle.dublinbikes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,8 +10,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.ianarbuckle.dublinbikes.map.MapPagerActivity;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.ianarbuckle.dublinbikes.authentication.AuthPagerActivity;
+import com.ianarbuckle.dublinbikes.map.MapFragment;
+import com.ianarbuckle.dublinbikes.utiity.CircleTransform;
+import com.ianarbuckle.dublinbikes.utiity.Constants;
 import com.ianarbuckle.dublinbikes.utiity.UiUtils;
 
 import butterknife.BindView;
@@ -38,6 +48,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
   Unbinder unbinder;
 
+  GoogleApiClient googleApiClient;
+
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -50,8 +62,40 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     initToolbar();
 
+    initNavView();
+  }
+
+  private void initNavView() {
     if(navigationView != null) {
       navigationView.setNavigationItemSelectedListener(this);
+      View headerView = navigationView.getHeaderView(0);
+      TextView userTv = (TextView) headerView.findViewById(R.id.name);
+      TextView emailTv = (TextView) headerView.findViewById(R.id.email);
+
+
+      String username = getIntent().getExtras().getString(Constants.USERNAME_KEY);
+      String photo = getIntent().getExtras().getString(Constants.PHOTO_KEY);
+      String email = getIntent().getExtras().getString(Constants.EMAIL_KEY);
+
+      userTv.setText(username);
+      emailTv.setText(email);
+
+      ImageView imageView = (ImageView) headerView.findViewById(R.id.img_profile);
+
+      Glide.with(getApplicationContext()).load(photo)
+          .crossFade()
+          .thumbnail(0.5f)
+          .bitmapTransform(new CircleTransform(getApplicationContext()))
+          .diskCacheStrategy(DiskCacheStrategy.ALL)
+          .into(imageView);
+
+      ImageView bgImage = (ImageView) headerView.findViewById(R.id.img_header_bg);
+
+      Glide.with(getApplicationContext()).load(Constants.HEADER_URL)
+          .crossFade()
+          .diskCacheStrategy(DiskCacheStrategy.ALL)
+          .into(bgImage);
+
     }
   }
 
@@ -79,14 +123,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     switch(itemId) {
       case R.id.nav_home:
-        startActivity(MapPagerActivity.newIntent(this));
-        break;
-      case R.id.nav_profile:
-        break;
-      case R.id.nav_signout:
-        finish();
+        MapFragment.newInstance();
         break;
       case R.id.nav_invite:
+        sendShareIntent();
+        break;
+      case R.id.nav_signout:
+        startActivity(AuthPagerActivity.newIntent(getApplicationContext()));
         break;
     }
 
@@ -94,7 +137,21 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
       drawerLayout.closeDrawer(GravityCompat.START);
     }
 
+    if (item.isChecked()) {
+      item.setChecked(false);
+    } else {
+      item.setChecked(true);
+    }
+    item.setChecked(true);
+
     return true;
+  }
+
+  private void sendShareIntent() {
+    Intent intent = new Intent(Intent.ACTION_SEND);
+    intent.setType("text/plain");
+    intent.putExtra(Intent.EXTRA_TEXT, "Check out Dublin Bikes Android app!");
+    startActivity(intent);
   }
 
   @Override
@@ -103,4 +160,11 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     unbinder.unbind();
   }
 
+  @Override
+  public void onBackPressed() {
+    super.onBackPressed();
+    if(drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
+        drawerLayout.closeDrawers();
+    }
+  }
 }

@@ -35,6 +35,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.SphericalUtil;
 import com.ianarbuckle.dublinbikes.BaseFragment;
 import com.ianarbuckle.dublinbikes.R;
+import com.ianarbuckle.dublinbikes.utiity.Constants;
 import com.ianarbuckle.dublinbikes.utiity.TextUtils;
 
 import butterknife.BindView;
@@ -47,17 +48,6 @@ import butterknife.OnClick;
 
 public class StationFragment extends BaseFragment implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks,
     LocationListener {
-
-  public static final String NAME_KEY = "name";
-  public static final String STANDS_KEY = "stands";
-  public static final String BIKES_KEY = "available";
-  public static final String SLOTS_KEY = "slots";
-  public static final String STATUS_KEY = "status";
-  public static final String UPDATE_KEY = "update";
-  public static final String LAT_KEY = "lat";
-  public static final String LNG_KEY = "lng";
-
-  private static final int PERMISSION_REQUEST_ACCESS_LOCATION = 99;
 
   @BindView(R.id.nameTv)
   TextView nameTv;
@@ -119,12 +109,12 @@ public class StationFragment extends BaseFragment implements GoogleApiClient.OnC
   }
 
   private void initView() {
-    String name = getActivity().getIntent().getStringExtra(NAME_KEY);
-    int stands = getActivity().getIntent().getIntExtra(STANDS_KEY, 0);
-    int bikes = getActivity().getIntent().getIntExtra(BIKES_KEY, 0);
-    int slots = getActivity().getIntent().getIntExtra(SLOTS_KEY, 0);
-    String status = getActivity().getIntent().getStringExtra(STATUS_KEY);
-    long update = getActivity().getIntent().getLongExtra(UPDATE_KEY, 0);
+    String name = getActivity().getIntent().getStringExtra(Constants.NAME_KEY);
+    int stands = getActivity().getIntent().getIntExtra(Constants.STANDS_KEY, 0);
+    int bikes = getActivity().getIntent().getIntExtra(Constants.BIKES_KEY, 0);
+    int slots = getActivity().getIntent().getIntExtra(Constants.SLOTS_KEY, 0);
+    String status = getActivity().getIntent().getStringExtra(Constants.STATUS_KEY);
+    long update = getActivity().getIntent().getLongExtra(Constants.UPDATE_KEY, 0);
     String format = TextUtils.getDuration(update);
     nameTv.setText(name);
     bikeStandsTv.setText(String.valueOf(stands));
@@ -142,9 +132,9 @@ public class StationFragment extends BaseFragment implements GoogleApiClient.OnC
 
   @OnClick(R.id.shareIv)
   public void shareContent() {
-    String name = getActivity().getIntent().getStringExtra(NAME_KEY);
-    int bikes = getActivity().getIntent().getIntExtra(BIKES_KEY, 0);
-    int slots = getActivity().getIntent().getIntExtra(SLOTS_KEY, 0);
+    String name = getActivity().getIntent().getStringExtra(Constants.NAME_KEY);
+    int bikes = getActivity().getIntent().getIntExtra(Constants.BIKES_KEY, 0);
+    int slots = getActivity().getIntent().getIntExtra(Constants.SLOTS_KEY, 0);
     Intent intent = new Intent(Intent.ACTION_SEND);
     intent.setType("text/plain");
     intent.putExtra(Intent.EXTRA_TEXT, "Station - " + name + "Bikes - " + bikes + "Slots - " + slots + "Distance - " + distance);
@@ -171,8 +161,8 @@ public class StationFragment extends BaseFragment implements GoogleApiClient.OnC
         map.getUiSettings().setMapToolbarEnabled(false);
         map.addPolyline(new PolylineOptions().geodesic(true));
 
-        double lat = getActivity().getIntent().getDoubleExtra(LAT_KEY, 0);
-        double lng = getActivity().getIntent().getDoubleExtra(LNG_KEY, 0);
+        double lat = getActivity().getIntent().getDoubleExtra(Constants.LAT_KEY, 0);
+        double lng = getActivity().getIntent().getDoubleExtra(Constants.LNG_KEY, 0);
         LatLng latLng = new LatLng(lat, lng);
 
         stationLocation = map.addMarker(new MarkerOptions().position(latLng));
@@ -211,9 +201,9 @@ public class StationFragment extends BaseFragment implements GoogleApiClient.OnC
       if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
 
         requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-            PERMISSION_REQUEST_ACCESS_LOCATION);
+            Constants.PERMISSION_REQUEST_ACCESS_LOCATION);
       } else {
-        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_ACCESS_LOCATION);
+        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Constants.PERMISSION_REQUEST_ACCESS_LOCATION);
       }
       return false;
     } else {
@@ -224,7 +214,7 @@ public class StationFragment extends BaseFragment implements GoogleApiClient.OnC
   @Override
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
     switch (requestCode) {
-      case PERMISSION_REQUEST_ACCESS_LOCATION: {
+      case Constants.PERMISSION_REQUEST_ACCESS_LOCATION: {
         if (grantResults.length > 0
             && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
@@ -270,7 +260,7 @@ public class StationFragment extends BaseFragment implements GoogleApiClient.OnC
   }
 
   @Override
-  public void onConnectionFailed(ConnectionResult connectionResult) {
+  public void onConnectionFailed(@Nullable ConnectionResult connectionResult) {
 
   }
 
@@ -305,8 +295,8 @@ public class StationFragment extends BaseFragment implements GoogleApiClient.OnC
     lastLocation.getLongitude();
     lastLocation.getLatitude();
 
-    double lat = getActivity().getIntent().getDoubleExtra(LAT_KEY, 0);
-    double lng = getActivity().getIntent().getDoubleExtra(LNG_KEY, 0);
+    double lat = getActivity().getIntent().getDoubleExtra(Constants.LAT_KEY, 0);
+    double lng = getActivity().getIntent().getDoubleExtra(Constants.LNG_KEY, 0);
 
     LatLng latLngTo = new LatLng(lat, lng);
 

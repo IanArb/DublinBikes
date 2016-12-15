@@ -32,6 +32,7 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.ianarbuckle.dublinbikes.BaseFragment;
 import com.ianarbuckle.dublinbikes.R;
 import com.ianarbuckle.dublinbikes.models.Station;
+import com.ianarbuckle.dublinbikes.utiity.Constants;
 import com.ianarbuckle.dublinbikes.utiity.ErrorFragmentDialog;
 import com.ianarbuckle.dublinbikes.utiity.PopupFragmentDialog;
 
@@ -46,8 +47,6 @@ import java.util.List;
 public class MapFragment extends BaseFragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
     LocationListener, MapView {
 
-  private static final int PERMISSION_REQUEST_ACCESS_LOCATION = 99;
-  private static final String TAG = "dialogFragment";
   private GoogleMap map;
   private GoogleApiClient googleApiClient;
   LocationRequest locationRequest;
@@ -129,7 +128,7 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
   @NonNull
   private FragmentTransaction getFragmentTransaction() {
     FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-    Fragment fragment = getActivity().getSupportFragmentManager().findFragmentByTag(TAG);
+    Fragment fragment = getActivity().getSupportFragmentManager().findFragmentByTag(Constants.TAG_POPUP_DIALOG);
 
     if (fragment != null) {
       fragmentTransaction.remove(fragment);
@@ -184,7 +183,7 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
   }
 
   @Override
-  public void onConnectionFailed(ConnectionResult connectionResult) {
+  public void onConnectionFailed(@Nullable ConnectionResult connectionResult) {
     //Stub method
   }
 
@@ -201,8 +200,8 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
     markerOptions.position(latLng);
     currentLocation = map.addMarker(markerOptions);
 
-    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
-    map.animateCamera(CameraUpdateFactory.zoomTo(12));
+    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
+    map.animateCamera(CameraUpdateFactory.zoomTo(13));
 
     if (googleApiClient != null) {
       LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
@@ -234,7 +233,7 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
 
           DialogFragment dialogFragment = PopupFragmentDialog.newInstance(nameMarker, addressMarker, statusMarker, slotsMarker, availMarker, update);
           dialogFragment.onCreateAnimation(R.anim.slide_up, true, R.anim.slide_down);
-          dialogFragment.show(fragmentTransaction, TAG);
+          dialogFragment.show(fragmentTransaction, Constants.TAG_POPUP_DIALOG);
 
           return false;
         }
@@ -249,9 +248,9 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
       if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
 
         requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-            PERMISSION_REQUEST_ACCESS_LOCATION);
+            Constants.PERMISSION_REQUEST_ACCESS_LOCATION);
       } else {
-        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_ACCESS_LOCATION);
+        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Constants.PERMISSION_REQUEST_ACCESS_LOCATION);
       }
       return false;
     } else {
@@ -262,7 +261,7 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
   @Override
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
     switch (requestCode) {
-      case PERMISSION_REQUEST_ACCESS_LOCATION: {
+      case Constants.PERMISSION_REQUEST_ACCESS_LOCATION: {
         if (grantResults.length > 0
             && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
@@ -288,8 +287,8 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
   public void onFailureMessage(Throwable throwable) {
     FragmentTransaction fragmentTransaction = getFragmentTransaction();
 
-    DialogFragment dialogFragment = ErrorFragmentDialog.newInstance(throwable.getMessage());
-    dialogFragment.show(fragmentTransaction, TAG);
+    DialogFragment dialogFragment = ErrorFragmentDialog.newInstance(R.string.error_message_internet);
+    dialogFragment.show(fragmentTransaction, Constants.TAG_ERROR_DIALOG);
   }
 
 }

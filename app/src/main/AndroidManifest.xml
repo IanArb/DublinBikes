@@ -6,14 +6,14 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
 
     <application
-        android:allowBackup="true"
         android:name=".DublinBikesApplication"
+        android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:fullBackupContent="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -21,8 +21,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key"/>
 
-        <activity android:name=".map.MapPagerActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".authentication.AuthPagerActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -30,13 +31,19 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".stations.station.StationActivity"
-                  android:screenOrientation="portrait"
-                  android:parentActivityName=".map.MapPagerActivity"/>
+        <activity
+            android:name=".map.MapPagerActivity"
+            android:parentActivityName=".authentication.AuthPagerActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".stations.station.StationActivity"
+            android:parentActivityName=".map.MapPagerActivity"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="6c515ae111246dd2b511d91ccc951e841acda3ef" />
+            android:value="6c515ae111246dd2b511d91ccc951e841acda3ef"/>
     </application>
 
 </manifest>

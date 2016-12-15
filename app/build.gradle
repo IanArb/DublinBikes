@@ -64,6 +64,15 @@ dependencies {
     compile googleDependencies.googleWearable
     compile googleDependencies.multidexSupportLib
     compile googleDependencies.gson
+    compile googleDependencies.googleAuth
+
+    //Firebase dependencies
+    compile firebaseDependencies.firebaseDatabase
+    compile firebaseDependencies.firebaseAuth
+    compile firebaseDependencies.firebaseConfig
+    compile firebaseDependencies.firebaseInvite
+    compile firebaseDependencies.firebaseMessage
+    compile firebaseDependencies.firebaseAnalytics
 
     // Third party dependencies
     def thirdPartyDependencies = rootProject.ext.thirdPartyDependencies
@@ -71,6 +80,7 @@ dependencies {
     compile thirdPartyDependencies.okHttp
     compile thirdPartyDependencies.okHttpUrlConnection
     compile thirdPartyDependencies.retrofit
+    compile thirdPartyDependencies.glide
     // RxJava
     compile thirdPartyDependencies.rxJava
     compile thirdPartyDependencies.rxAndroid
@@ -125,3 +135,5 @@ def calculateVersionCode() {
     def buildNumber = System.env.BUILD_NUMBER
     return buildNumber ? buildNumber.toInteger() : 1000000
 }
+
+apply plugin: 'com.google.gms.google-services'
