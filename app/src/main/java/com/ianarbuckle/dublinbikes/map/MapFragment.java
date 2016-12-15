@@ -207,30 +207,7 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
     if (googleApiClient != null) {
       LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
     }
-    //TODO Calculate distance from location
-//    showDistance(distance);
   }
-
-  //TODO Calculate distance from location
-//  private void showDistance(double distance) {
-//    lastLocation.getLongitude();
-//    lastLocation.getLatitude();
-//    int size = presenter.onResponseStations().size();
-//    final List<Station> stationList = presenter.onResponseStations();
-//    for (int i = 0; i < size; i++) {
-//      String name = stationList.get(i).getName();
-//      double lat = stationList.get(i).getPosition().getLat();
-//      double lng = stationList.get(i).getPosition().getLng();
-//
-//      LatLng latLngTo = new LatLng(lat, lng);
-//
-//      LatLng locLatLng = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
-//
-//      distance = SphericalUtil.computeDistanceBetween(locLatLng, latLngTo);
-//
-//      Toast.makeText(getContext(), "Name: " + name + " Distance: " + distance, Toast.LENGTH_SHORT).show();
-//    }
-//  }
 
   private void setupLocations() {
 
@@ -254,9 +231,6 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
           int slotsMarker = markerItemModel.getSlots();
           int availMarker = markerItemModel.getAvailable();
           long update = markerItemModel.getUpdate();
-          //TODO Calculate distance from location
-//          markerItemModel.setDistance(distance);
-//          distance = markerItemModel.getDistance();
 
           DialogFragment dialogFragment = PopupFragmentDialog.newInstance(nameMarker, addressMarker, statusMarker, slotsMarker, availMarker, update);
           dialogFragment.onCreateAnimation(R.anim.slide_up, true, R.anim.slide_down);
