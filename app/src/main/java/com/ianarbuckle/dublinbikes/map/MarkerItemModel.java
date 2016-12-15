@@ -58,7 +58,4 @@ public class MarkerItemModel implements ClusterItem {
     return update;
   }
 
-//  public void setDistance(double distance) {
-//    this.distance = distance;
-//  }
 }
