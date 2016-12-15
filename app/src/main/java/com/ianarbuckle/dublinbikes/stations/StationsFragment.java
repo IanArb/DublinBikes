@@ -15,6 +15,7 @@ import com.ianarbuckle.dublinbikes.models.Station;
 import com.ianarbuckle.dublinbikes.network.DublinBikesCaller;
 import com.ianarbuckle.dublinbikes.network.DublinBikesServiceAPI;
 import com.ianarbuckle.dublinbikes.stations.station.StationActivity;
+import com.ianarbuckle.dublinbikes.utiity.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ import retrofit2.Response;
  *
  */
 
-public class StationsFragment extends BaseFragment implements StationsView {
+public class StationsFragment extends BaseFragment {
 
   RecyclerView.Adapter adapter;
   LinearLayoutManager layoutManager;
@@ -38,15 +39,6 @@ public class StationsFragment extends BaseFragment implements StationsView {
   private List<Station> data;
 
   private RecyclerView recyclerView;
-
-  public static final String NAME_KEY = "name";
-  public static final String STANDS_KEY = "stands";
-  public static final String BIKES_KEY = "available";
-  public static final String SLOTS_KEY = "slots";
-  public static final String STATUS_KEY = "status";
-  public static final String UPDATE_KEY = "update";
-  public static final String LAT_KEY = "lat";
-  public static final String LNG_KEY = "lng";
 
   public static StationsFragment newInstance() {
     return new StationsFragment();
@@ -76,14 +68,14 @@ public class StationsFragment extends BaseFragment implements StationsView {
         long update = data.get(position).getLastUpdate();
         double lat = data.get(position).getPosition().getLat();
         double lng = data.get(position).getPosition().getLng();
-        intent.putExtra(NAME_KEY, name);
-        intent.putExtra(STANDS_KEY, stands);
-        intent.putExtra(BIKES_KEY, bikes);
-        intent.putExtra(SLOTS_KEY, slots);
-        intent.putExtra(STATUS_KEY, status);
-        intent.putExtra(UPDATE_KEY, update);
-        intent.putExtra(LAT_KEY, lat);
-        intent.putExtra(LNG_KEY, lng);
+        intent.putExtra(Constants.NAME_KEY, name);
+        intent.putExtra(Constants.STANDS_KEY, stands);
+        intent.putExtra(Constants.BIKES_KEY, bikes);
+        intent.putExtra(Constants.SLOTS_KEY, slots);
+        intent.putExtra(Constants.STATUS_KEY, status);
+        intent.putExtra(Constants.UPDATE_KEY, update);
+        intent.putExtra(Constants.LAT_KEY, lat);
+        intent.putExtra(Constants.LNG_KEY, lng);
         startActivity(intent);
       }
 
@@ -118,22 +110,6 @@ public class StationsFragment extends BaseFragment implements StationsView {
       public void onFailure(Call<List<Station>> call, Throwable throwable) {
       }
     });
-  }
-
-
-  @Override
-  public void showProgressDialog() {
-
-  }
-
-  @Override
-  public void hideProgressDialog() {
-
-  }
-
-  @Override
-  public void onFailureMessage(Throwable throwable) {
-
   }
 
 }

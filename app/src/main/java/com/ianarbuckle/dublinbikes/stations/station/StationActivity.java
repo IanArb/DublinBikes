@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.ianarbuckle.dublinbikes.BaseActivity;
 import com.ianarbuckle.dublinbikes.BaseFragment;
 import com.ianarbuckle.dublinbikes.R;
+import com.ianarbuckle.dublinbikes.utiity.Constants;
 import com.ianarbuckle.dublinbikes.utiity.UiUtils;
 
 /**
@@ -18,9 +19,6 @@ import com.ianarbuckle.dublinbikes.utiity.UiUtils;
  */
 
 public class StationActivity extends BaseActivity {
-
-  public static final String TAG_STATION = "stationFragment";
-  public static final String NAME_KEY = "name";
 
   public static Intent newIntent(Context context) {
     return new Intent(context, StationActivity.class);
@@ -36,7 +34,7 @@ public class StationActivity extends BaseActivity {
   @Override
   protected void initToolbar() {
     super.initToolbar();
-    String name = getIntent().getStringExtra(NAME_KEY);
+    String name = getIntent().getStringExtra(Constants.NAME_KEY);
     if (toolbar != null) {
       UiUtils.customiseToolbar(toolbar);
       UiUtils.backStyleActionBar(toolbar);
@@ -56,11 +54,11 @@ public class StationActivity extends BaseActivity {
 
   private void initFragment() {
     FragmentManager fragmentManager = getSupportFragmentManager();
-    if(fragmentManager.findFragmentByTag(TAG_STATION) != null) {
+    if(fragmentManager.findFragmentByTag(Constants.TAG_STATION) != null) {
       return;
     }
 
-    BaseFragment.switchFragment(getSupportFragmentManager(), StationFragment.newInstance(), TAG_STATION, false);
+    BaseFragment.switchFragment(getSupportFragmentManager(), StationFragment.newInstance(), Constants.TAG_STATION, false);
   }
 
   @Override

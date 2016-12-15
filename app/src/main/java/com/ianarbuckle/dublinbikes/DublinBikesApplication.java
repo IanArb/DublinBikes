@@ -2,13 +2,12 @@ package com.ianarbuckle.dublinbikes;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 
-import com.twitter.sdk.android.Twitter;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
-
-import io.fabric.sdk.android.Fabric;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.ianarbuckle.dublinbikes.authentication.firebase.AuthenticationHelper;
+import com.ianarbuckle.dublinbikes.authentication.firebase.AuthenticationHelperImpl;
 
 /**
  * Created by Ian Arbuckle on 23/11/2016.
@@ -17,11 +16,11 @@ import io.fabric.sdk.android.Fabric;
 
 public class DublinBikesApplication extends Application {
 
-  // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
-  private static final String TWITTER_KEY = "eVuhajCjJ7AzIFq8R3gue9dKw";
-  private static final String TWITTER_SECRET = "eVuhajCjJ7AzIFq8R3gue9dKw";
-
   private ApplicationComponent applicationComponent;
+
+  private AuthenticationHelper authenticationHelper;
+
+  private static DublinBikesApplication appInstance;
 
   @Override
   public void onCreate() {
@@ -29,19 +28,24 @@ public class DublinBikesApplication extends Application {
 
     getApplicationComponent(this);
 
-    TwitterAuthConfig authConfig = initTwitter();
-
-    initFabric(authConfig);
+    initFirebase();
 
   }
 
-  @NonNull
-  private TwitterAuthConfig initTwitter() {
-    return new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+  private void initFirebase() {
+    if(!FirebaseApp.getApps(this).isEmpty()) {
+      appInstance = this;
+      FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+      authenticationHelper = new AuthenticationHelperImpl(firebaseAuth);
+    }
   }
 
-  private void initFabric(TwitterAuthConfig authConfig) {
-    Fabric.with(this, new Twitter(authConfig));
+  public static DublinBikesApplication getAppInstance() {
+    return appInstance;
+  }
+
+  public AuthenticationHelper getAuthenticationHelper() {
+    return authenticationHelper;
   }
 
   public static ApplicationComponent getApplicationComponent(Context context) {

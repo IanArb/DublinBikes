@@ -29,4 +29,13 @@ public class TextUtils {
     return String.format(Locale.ENGLISH, "%4.3f%s", distance, unit);
   }
 
+  public static boolean isStringEmptyorNull(String... strings) {
+    for(String current : strings) {
+      if(current == null || current.isEmpty() || current.trim().isEmpty()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 }
