@@ -50,21 +50,6 @@ public class MapPresenterImpl implements MapPresenter {
     return new MarkerItemModel(latLng, name, address, status, slots, avail, update);
   }
 
-
-//  private double showDistance() {
-//    double distance = 0;
-//    int size = stationList.size();
-//
-//    for(int i = 0; i < size; i++) {
-//      double lat = stationList.get(i).getPosition().getLat();
-//      double lng = stationList.get(i).getPosition().getLng();
-//      LatLng latLng = new LatLng(lat, lng);
-//      LatLng location = getLocation(lastLocation);
-//      distance = SphericalUtil.computeDistanceBetween(location, latLng);
-//    }
-//    return distance;
-//  }
-
   @Override
   public void fetchStations() {
       serviceAPI = DublinBikesCaller.getDublinBikesServiceAPI();
