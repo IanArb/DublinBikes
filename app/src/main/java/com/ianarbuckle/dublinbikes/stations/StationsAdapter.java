@@ -6,8 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.ianarbuckle.dublinbikes.R;
 import com.ianarbuckle.dublinbikes.models.Station;
 import com.ianarbuckle.dublinbikes.utiity.TextUtils;
@@ -43,10 +43,16 @@ public class StationsAdapter extends RecyclerView.Adapter<StationsAdapter.Statio
     TextView updateTv;
     @BindView(R.id.statusTv)
     TextView statusTv;
+    @BindView(R.id.shareIv)
+    ImageView shareIv;
+    @BindView(R.id.distanceTv)
+    TextView distanceTv;
 
-    public StationsCardViewHolder(View itemView) {
+    public StationsCardViewHolder(final View itemView) {
       super(itemView);
       ButterKnife.bind(this, itemView);
+      shareIv.setVisibility(View.GONE);
+      distanceTv.setVisibility(View.GONE);
     }
 
   }
@@ -64,7 +70,7 @@ public class StationsAdapter extends RecyclerView.Adapter<StationsAdapter.Statio
   }
 
   @Override
-  public void onBindViewHolder(StationsCardViewHolder holder, int position) {
+  public void onBindViewHolder(final StationsCardViewHolder holder, final int position) {
     TextView name = holder.nameTv;
     TextView bikeStands = holder.standsTv;
     TextView avail = holder.availTv;

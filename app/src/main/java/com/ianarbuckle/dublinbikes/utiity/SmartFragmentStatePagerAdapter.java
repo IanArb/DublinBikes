@@ -10,7 +10,7 @@ import android.view.ViewGroup;
  * Created by Ian Arbuckle on 12/12/2016.
  * Extension of FragmentStatePagerAdapter which intelligently caches all active fragments and manages the fragment lifecycles.
  * Usage involves extending from SmartFragmentStatePagerAdapter as you would any other PagerAdapter.
- * Reference - https://gist.github.com/nesquena/c715c9b22fb873b1d259
+ * @author  - https://gist.github.com/nesquena/c715c9b22fb873b1d259
  */
 
 public abstract class SmartFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
