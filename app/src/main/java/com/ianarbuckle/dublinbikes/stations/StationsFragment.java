@@ -100,6 +100,7 @@ public class StationsFragment extends BaseFragment {
     call.enqueue(new Callback<List<Station>>() {
       @Override
       public void onResponse(Call<List<Station>> call, Response<List<Station>> response) {
+        //TODO Pass list as parceable
         data = new ArrayList<>();
         data = response.body();
         adapter = new StationsAdapter(data, getContext());

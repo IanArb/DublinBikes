@@ -63,7 +63,6 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    setRetainInstance(true);
     return inflater.inflate(R.layout.fragment_map, container, false);
   }
 
