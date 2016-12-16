@@ -125,11 +125,6 @@ public class LoginFragment extends BaseFragment implements AuthLoginView, Google
     dialogFragment.show(fragmentTransaction, Constants.TAG_ERROR_DIALOG);
   }
 
-  @OnClick(R.id.guestBtn)
-  public void onGuestClick() {
-    startActivity(MapPagerActivity.newIntent(getContext()));
-  }
-
   @OnClick(R.id.googleSignin)
   public void signInGoogleClick() {
     signIn();
