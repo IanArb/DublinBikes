@@ -19,6 +19,7 @@ public class Constants {
   public static final String SLOTS_KEY = "slots";
   public static final String STATUS_KEY = "status";
   public static final String UPDATE_KEY = "update";
+  public static final String ADDRESS_KEY = "address";
   public static final String LAT_KEY = "lat";
   public static final String LNG_KEY = "lng";
   public static final String TAG_STATION = "stationFragment";

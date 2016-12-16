@@ -3,6 +3,7 @@ package com.ianarbuckle.dublinbikes.utiity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,14 +24,6 @@ import java.util.Locale;
 
 public class PopupFragmentDialog extends DialogFragment {
 
-
-  private static final String NAME_KEY = "name";
-  private static final String ADDRESS_KEY = "address";
-  private static final String STATUS_KEY = "status";
-  private static final String SLOTS_KEY = "slots";
-  private static final String AVAIL_KEY = "available";
-  private static final String UPDATE_KEY = "update";
-
   String name;
   String address;
   String status;
@@ -44,12 +37,12 @@ public class PopupFragmentDialog extends DialogFragment {
   public static PopupFragmentDialog newInstance(String name, String address, String status, int slots, int available, long update) {
     PopupFragmentDialog popupFragmentDialog = new PopupFragmentDialog();
     Bundle args = new Bundle();
-    args.putString(NAME_KEY, name);
-    args.putString(ADDRESS_KEY, address);
-    args.putString(STATUS_KEY, status);
-    args.putInt(SLOTS_KEY, slots);
-    args.putInt(AVAIL_KEY, available);
-    args.putLong(UPDATE_KEY, update);
+    args.putString(Constants.NAME_KEY, name);
+    args.putString(Constants.ADDRESS_KEY, address);
+    args.putString(Constants.STATUS_KEY, status);
+    args.putInt(Constants.SLOTS_KEY, slots);
+    args.putInt(Constants.BIKES_KEY, available);
+    args.putLong(Constants.UPDATE_KEY, update);
     popupFragmentDialog.setArguments(args);
     return popupFragmentDialog;
   }
@@ -68,12 +61,12 @@ public class PopupFragmentDialog extends DialogFragment {
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.card_map, container, false);
-    name = getArguments().getString(NAME_KEY);
-    address = getArguments().getString(ADDRESS_KEY);
-    status = getArguments().getString(STATUS_KEY);
-    slots = getArguments().getInt(SLOTS_KEY);
-    available = getArguments().getInt(AVAIL_KEY);
-    update = getArguments().getLong(UPDATE_KEY);
+    name = getArguments().getString(Constants.NAME_KEY);
+    address = getArguments().getString(Constants.ADDRESS_KEY);
+    status = getArguments().getString(Constants.STATUS_KEY);
+    slots = getArguments().getInt(Constants.SLOTS_KEY);
+    available = getArguments().getInt(Constants.BIKES_KEY);
+    update = getArguments().getLong(Constants.UPDATE_KEY);
 
     View nameTv = view.findViewById(R.id.nameTv);
     ((TextView) nameTv).setText(name);
@@ -90,6 +83,12 @@ public class PopupFragmentDialog extends DialogFragment {
     View updateTv = view.findViewById(R.id.updateTv);
     String formatUpdate = TextUtils.getDuration(update);
     ((TextView) updateTv).setText(formatUpdate);
+
+    if(status.equals("OPEN")) {
+      ((TextView) statusTv).setTextColor(ContextCompat.getColor(getContext(), R.color.colorGreen));
+    } else {
+      ((TextView) statusTv).setTextColor(ContextCompat.getColor(getContext(), R.color.colorRed));
+    }
 
     ImageButton closeButton = (ImageButton) view.findViewById(R.id.close);
     closeButton.setOnClickListener(new View.OnClickListener() {

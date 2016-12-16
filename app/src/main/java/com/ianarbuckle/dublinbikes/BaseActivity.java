@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.ianarbuckle.dublinbikes.authentication.AuthPagerActivity;
 import com.ianarbuckle.dublinbikes.map.MapFragment;
 import com.ianarbuckle.dublinbikes.utiity.CircleTransform;
@@ -47,8 +46,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
   protected DrawerLayout drawerLayout;
 
   Unbinder unbinder;
-
-  GoogleApiClient googleApiClient;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
