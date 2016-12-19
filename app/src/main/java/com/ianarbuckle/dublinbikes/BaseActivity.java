@@ -69,22 +69,25 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
       TextView userTv = (TextView) headerView.findViewById(R.id.name);
       TextView emailTv = (TextView) headerView.findViewById(R.id.email);
 
+      Bundle extras = getIntent().getExtras();
+      if(extras != null) {
+        String username = extras.getString(Constants.USERNAME_KEY);
+        String photo = extras.getString(Constants.PHOTO_KEY);
+        String email = extras.getString(Constants.EMAIL_KEY);
 
-      String username = getIntent().getExtras().getString(Constants.USERNAME_KEY);
-      String photo = getIntent().getExtras().getString(Constants.PHOTO_KEY);
-      String email = getIntent().getExtras().getString(Constants.EMAIL_KEY);
+        userTv.setText(username);
+        emailTv.setText(email);
 
-      userTv.setText(username);
-      emailTv.setText(email);
+        ImageView imageView = (ImageView) headerView.findViewById(R.id.img_profile);
 
-      ImageView imageView = (ImageView) headerView.findViewById(R.id.img_profile);
+        Glide.with(getApplicationContext()).load(photo)
+            .crossFade()
+            .thumbnail(0.5f)
+            .bitmapTransform(new CircleTransform(getApplicationContext()))
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(imageView);
+      }
 
-      Glide.with(getApplicationContext()).load(photo)
-          .crossFade()
-          .thumbnail(0.5f)
-          .bitmapTransform(new CircleTransform(getApplicationContext()))
-          .diskCacheStrategy(DiskCacheStrategy.ALL)
-          .into(imageView);
 
       ImageView bgImage = (ImageView) headerView.findViewById(R.id.img_header_bg);
 

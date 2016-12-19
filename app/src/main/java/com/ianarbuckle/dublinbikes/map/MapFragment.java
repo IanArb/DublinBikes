@@ -141,8 +141,8 @@ public class MapFragment extends BaseFragment implements GoogleApiClient.Connect
   private SupportMapFragment initFragment(SupportMapFragment supportMapFragment) {
     if (supportMapFragment == null) {
       FragmentManager fragmentManager = getFragmentManager();
-      supportMapFragment = new SupportMapFragment();
       FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+      supportMapFragment = SupportMapFragment.newInstance();
       fragmentTransaction.replace(R.id.fragment_map, supportMapFragment).commit();
       setRetainInstance(true);
     }
