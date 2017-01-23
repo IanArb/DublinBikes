@@ -10,8 +10,8 @@ import android.view.MenuItem;
 import com.ianarbuckle.dublinbikes.BaseActivity;
 import com.ianarbuckle.dublinbikes.BaseFragment;
 import com.ianarbuckle.dublinbikes.R;
-import com.ianarbuckle.dublinbikes.utiity.Constants;
-import com.ianarbuckle.dublinbikes.utiity.UiUtils;
+import com.ianarbuckle.dublinbikes.utility.Constants;
+import com.ianarbuckle.dublinbikes.utility.UiUtils;
 
 /**
  * Created by Ian Arbuckle on 14/12/2016.

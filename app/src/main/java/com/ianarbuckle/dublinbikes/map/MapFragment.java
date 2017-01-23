@@ -32,9 +32,9 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.ianarbuckle.dublinbikes.BaseFragment;
 import com.ianarbuckle.dublinbikes.R;
 import com.ianarbuckle.dublinbikes.models.Station;
-import com.ianarbuckle.dublinbikes.utiity.Constants;
-import com.ianarbuckle.dublinbikes.utiity.ErrorFragmentDialog;
-import com.ianarbuckle.dublinbikes.utiity.PopupFragmentDialog;
+import com.ianarbuckle.dublinbikes.utility.Constants;
+import com.ianarbuckle.dublinbikes.utility.ErrorFragmentDialog;
+import com.ianarbuckle.dublinbikes.utility.PopupFragmentDialog;
 
 import java.util.List;
 

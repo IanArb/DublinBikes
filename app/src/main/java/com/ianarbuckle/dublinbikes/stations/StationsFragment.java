@@ -15,7 +15,7 @@ import com.ianarbuckle.dublinbikes.models.Station;
 import com.ianarbuckle.dublinbikes.network.DublinBikesCaller;
 import com.ianarbuckle.dublinbikes.network.DublinBikesServiceAPI;
 import com.ianarbuckle.dublinbikes.stations.station.StationActivity;
-import com.ianarbuckle.dublinbikes.utiity.Constants;
+import com.ianarbuckle.dublinbikes.utility.Constants;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,7 +3,7 @@ package com.ianarbuckle.dublinbikes.authentication;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.ianarbuckle.dublinbikes.authentication.firebase.AuthenticationHelper;
 import com.ianarbuckle.dublinbikes.authentication.firebase.RequestListener;
-import com.ianarbuckle.dublinbikes.utiity.TextUtils;
+import com.ianarbuckle.dublinbikes.utility.TextUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

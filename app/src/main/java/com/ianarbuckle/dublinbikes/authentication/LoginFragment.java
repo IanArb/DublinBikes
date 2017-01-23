@@ -23,8 +23,8 @@ import com.ianarbuckle.dublinbikes.BaseFragment;
 import com.ianarbuckle.dublinbikes.DublinBikesApplication;
 import com.ianarbuckle.dublinbikes.R;
 import com.ianarbuckle.dublinbikes.map.MapPagerActivity;
-import com.ianarbuckle.dublinbikes.utiity.Constants;
-import com.ianarbuckle.dublinbikes.utiity.ErrorFragmentDialog;
+import com.ianarbuckle.dublinbikes.utility.Constants;
+import com.ianarbuckle.dublinbikes.utility.ErrorFragmentDialog;
 
 import butterknife.BindView;
 import butterknife.OnClick;

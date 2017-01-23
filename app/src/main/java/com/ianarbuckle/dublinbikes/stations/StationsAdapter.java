@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.ianarbuckle.dublinbikes.R;
 import com.ianarbuckle.dublinbikes.models.Station;
-import com.ianarbuckle.dublinbikes.utiity.TextUtils;
+import com.ianarbuckle.dublinbikes.utility.TextUtils;
 
 import java.util.List;
 

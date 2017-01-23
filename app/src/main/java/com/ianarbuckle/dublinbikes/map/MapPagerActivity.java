@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import com.ianarbuckle.dublinbikes.BaseActivity;
 import com.ianarbuckle.dublinbikes.R;
 import com.ianarbuckle.dublinbikes.stations.StationsFragment;
-import com.ianarbuckle.dublinbikes.utiity.SmartFragmentStatePagerAdapter;
+import com.ianarbuckle.dublinbikes.utility.SmartFragmentStatePagerAdapter;
 
 import butterknife.BindView;
 

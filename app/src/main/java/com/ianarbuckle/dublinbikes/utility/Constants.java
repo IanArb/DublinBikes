@@ -1,4 +1,4 @@
-package com.ianarbuckle.dublinbikes.utiity;
+package com.ianarbuckle.dublinbikes.utility;
 
 /**
  * Created by Ian Arbuckle on 15/12/2016.

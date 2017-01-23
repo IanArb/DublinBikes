@@ -18,9 +18,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ianarbuckle.dublinbikes.authentication.AuthPagerActivity;
 import com.ianarbuckle.dublinbikes.map.MapFragment;
-import com.ianarbuckle.dublinbikes.utiity.CircleTransform;
-import com.ianarbuckle.dublinbikes.utiity.Constants;
-import com.ianarbuckle.dublinbikes.utiity.UiUtils;
+import com.ianarbuckle.dublinbikes.utility.CircleTransform;
+import com.ianarbuckle.dublinbikes.utility.Constants;
+import com.ianarbuckle.dublinbikes.utility.UiUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -11,7 +11,7 @@ import android.support.v4.view.ViewPager;
 
 import com.ianarbuckle.dublinbikes.BaseActivity;
 import com.ianarbuckle.dublinbikes.R;
-import com.ianarbuckle.dublinbikes.utiity.SmartFragmentStatePagerAdapter;
+import com.ianarbuckle.dublinbikes.utility.SmartFragmentStatePagerAdapter;
 
 import butterknife.BindView;
 

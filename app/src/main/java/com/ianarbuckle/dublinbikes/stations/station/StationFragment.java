@@ -35,8 +35,8 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.SphericalUtil;
 import com.ianarbuckle.dublinbikes.BaseFragment;
 import com.ianarbuckle.dublinbikes.R;
-import com.ianarbuckle.dublinbikes.utiity.Constants;
-import com.ianarbuckle.dublinbikes.utiity.TextUtils;
+import com.ianarbuckle.dublinbikes.utility.Constants;
+import com.ianarbuckle.dublinbikes.utility.TextUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;

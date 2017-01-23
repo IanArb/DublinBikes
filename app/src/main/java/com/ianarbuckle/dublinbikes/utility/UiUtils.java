@@ -1,4 +1,4 @@
-package com.ianarbuckle.dublinbikes.utiity;
+package com.ianarbuckle.dublinbikes.utility;
 
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;

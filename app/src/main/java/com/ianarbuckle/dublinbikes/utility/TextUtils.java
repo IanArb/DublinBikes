@@ -1,4 +1,4 @@
-package com.ianarbuckle.dublinbikes.utiity;
+package com.ianarbuckle.dublinbikes.utility;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
